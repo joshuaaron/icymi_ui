@@ -1,0 +1,43 @@
+---
+interface Props {
+  id?: string;
+  class?: string;
+}
+
+const { id, class: className } = Astro.props;
+---
+
+<section class:list={["slide", className]} id={id}>
+  <slot/>
+</section>
+
+<style>
+  .slide {
+    flex: 0 0 100svh;
+    scroll-snap-align: start;
+    display: grid;
+    place-items: center;
+
+    &::scroll-marker {
+      content: "";
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(100, 100, 100, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      transition: all 0.2s;
+      opacity: 0;
+      animation: fade-blur-in 0.5s calc((sibling-index() * 0.1s) + 2.6s) forwards ease-out;
+    }
+
+    &::scroll-marker:target-current {
+      background: color-mix(in srgb, var(--primary-theme) 55%, white 15%);
+      border-color: var(--primary-theme);
+      scale: 1.2;
+    }
+
+    &::scroll-marker:hover {
+      background: color-mix(in srgb, var(--primary-theme) 45%, white 15%);
+    }
+  }
+</style>

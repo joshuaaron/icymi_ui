@@ -1,0 +1,53 @@
+---
+import { Prism } from "@astrojs/prism";
+import Slide from "../Carousel/Slide.astro";
+import GlassCard from "../GlassCard.astro";
+import SplitView from "../SplitView.astro";
+import PositionAreaSpanGrid from "./PositionAreaSpanGrid.astro";
+
+const positionArea = `.target {
+  position: absolute;
+  position-anchor: --anchor;
+  position-area: top span-right;
+}`;
+
+const logicalProps = `.target {
+  position-area: block-start span-inline-end;
+}
+
+/* Span the bottom three regions */
+.target {
+  position-area: block-end;
+}`;
+
+
+---
+
+<Slide>
+  <SplitView>
+    <div slot="content">
+      <GlassCard>
+        <h2>Spanning mutliple regions</h2>
+        <p>
+          We can also set our positioned target to span multiple regions of the containing block,
+          giving us more freedom to control the rendering of the positoned element
+        </p>
+        <p>
+          To place a target across two adjacent grid regions, we can use the prefix
+          <code>span-</code>on any value (that isn’t center) for both axis'
+        </p>
+        <p>
+          To span the target across all three adjacent regions, we reference the single axis value <code>top | bottom | left | right</code> or <code> inline-start/end block-start/end</code> with logical properties
+        </p>
+        <Prism lang="css" code={positionArea}/>
+        <p>With logical properties:</p>
+        <Prism lang="css" code={logicalProps} />
+      </GlassCard>
+    </div>
+    <div slot="demo">
+      <GlassCard>
+        <PositionAreaSpanGrid/>
+      </GlassCard>
+    </div>
+  </SplitView>
+</Slide>

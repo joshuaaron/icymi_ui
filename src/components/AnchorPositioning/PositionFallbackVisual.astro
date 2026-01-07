@@ -1,0 +1,147 @@
+<div class="flip-demo">
+  <pre
+    class="code-display"
+  ><code>position-try-fallbacks: <span class="value">flip-block</span>;</code></pre>
+
+  <div class="demo-container">
+    <!-- Grid cells (visual only) -->
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell anchor-cell">
+      <span class="anchor">anchor</span>
+    </div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+    <div class="cell"></div>
+
+    <!-- Before flip element -->
+    <div class="positioned before">Before flip</div>
+
+    <!-- Arrow -->
+    <div class="arrow">↓</div>
+
+    <!-- After flip element -->
+    <div class="positioned after">After flip</div>
+  </div>
+</div>
+
+<style>
+  .flip-demo {
+    --cell-size: 120px;
+    --before-color: #5b8bd4;
+    --after-color: #d45b80;
+  }
+
+  .code-display {
+    text-align: center;
+    font-family: monospace;
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+
+    & .value {
+      color: var(--display-value);
+      font-weight: 600;
+    }
+  }
+
+  .demo-container {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 120px);
+    background: #f0f0f0;
+    border-radius: 8px;
+    margin: 0 auto;
+  }
+
+  .cell {
+    border: var(--border-base);
+    background: white;
+  }
+
+  .anchor-cell {
+    anchor-name: --flip-anchor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--anchor);
+    border-radius: 8px;
+    font-size: 1.25rem;
+  }
+
+  .anchor {
+    color: #333;
+  }
+
+  /* Before flip - top position */
+  .positioned.before {
+    position: absolute;
+    position-anchor: --flip-anchor;
+    position-area: top right;
+    width: anchor-size();
+    height: calc(var(--cell-size) - 20px);
+    background: var(--before-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+  }
+
+  /* After flip - bottom position */
+  .positioned.after {
+    position: absolute;
+    position-anchor: --flip-anchor;
+    position-area: bottom right;
+    width: anchor-size();
+    height: calc(var(--cell-size) - 20px);
+    background: var(--target);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+  }
+
+  /* Arrow */
+  .arrow {
+    position: absolute;
+    position-anchor: --flip-anchor;
+    position-area: center right;
+    font-size: 2rem;
+    color: #666;
+    justify-self: center;
+    align-self: anchor-center;
+  }
+
+  /* Row labels - anchor positioned! */
+  .row-label {
+    position: absolute;
+    position-anchor: --flip-anchor;
+    font-family: system-ui, sans-serif;
+    font-size: 1rem;
+    color: #666;
+    padding-left: 1rem;
+  }
+
+  .label-top {
+    position-area: top right;
+    align-self: center;
+    translate: calc(var(--cell-size) + 20px) 0;
+  }
+
+  .label-center {
+    position-area: center right;
+    align-self: center;
+    translate: calc(var(--cell-size) + 20px) 0;
+  }
+
+  .label-bottom {
+    position-area: bottom right;
+    align-self: center;
+    translate: calc(var(--cell-size) + 20px) 0;
+  }
+</style>

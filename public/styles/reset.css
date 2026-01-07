@@ -1,0 +1,98 @@
+/* Mix between Andy Bell's reset (https://piccalil.li/blog/a-modern-css-reset/)
+   and Josh Comeau's (https://www.joshwcomeau.com/css/custom-css-reset/) */
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Allow percentage-based heights in the application */
+:where(html) {
+  block-size: 100%;
+  -webkit-text-size-adjust: none;
+  margin: 0;
+}
+
+/* Set core root defaults */
+
+:where(html:focus-within) {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+:where(body) {
+  margin: 0;
+  min-block-size: 100dvh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Remove list styles on ul, ol elements with a list role,
+   which suggests default styling will be removed */
+:where(ul, ol) {
+  list-style: none;
+  padding: 0;
+}
+
+:where(a, a:visited) {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Anchor elements that don't have a class get default styles */
+:where(a:not([class])) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make media elements easier to work with */
+:where(img, picture, video, canvas, svg) {
+  display: block;
+  max-inline-size: 100%;
+  block-size: auto;
+}
+
+/* Inherit fonts for inputs and buttons */
+:where(input, button, textarea, select) {
+  font: inherit;
+  line-height: inherit;
+}
+
+:where(img) {
+  inline-size: 100%;
+  object-fit: cover;
+}
+
+/* Avoid text overflows */
+:where(p, h1, h2, h3, h4, h5, h6) {
+  overflow-wrap: break-word;
+}
+
+/* Reset form and fieldset spacing */
+:where(form, fieldset) {
+  padding: 0;
+}
+
+:where(button, [type="button"], [type="reset"], [type="submit"]) {
+  -webkit-appearance: button; /* 1 */
+  appearance: button;
+  border: none;
+  background-color: transparent; /* 2 */
+  background-image: none; /* 2 */
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

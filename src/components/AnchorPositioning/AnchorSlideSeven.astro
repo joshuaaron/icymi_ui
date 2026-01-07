@@ -1,0 +1,53 @@
+---
+import { Prism } from "@astrojs/prism";
+import Slide from "../Carousel/Slide.astro";
+import GlassCard from "../GlassCard.astro";
+import SplitView from "../SplitView.astro";
+import ChartDemo from "./ChartDemo.astro";
+import ContextMenuDemo from "./ContextMenuDemo.astro";
+
+const tooltips = `@supports (anchor-name: --anchor) {
+  [popovertarget="context"] {
+    anchor-name: --context;
+  }
+  #context {
+    position-anchor: --context;
+  }
+
+  [popover] {
+    inset: unset;
+    margin-inline: 8px;
+    position-area: inline-end span-block-end;
+    position-try-fallbacks:
+      --custom-flip-block-end,
+      --custom-flip-block-start;
+  }
+
+  @position-try --custom-flip-block-end {
+    position-area: block-end span-inline-start;
+    margin-block-start: 12px;
+    margin-inline: 0;
+  }
+  @position-try --custom-flip-block-start {
+    position-area: block-start span-inline-start;
+    margin-block-end: 8px;
+    margin-inline: 0;
+  }
+}`;
+---
+
+<Slide>
+  <SplitView>
+    <div slot="content">
+      <GlassCard>
+        <h2>Nested Menu's - Look ma, no JS!</h2>
+        <Prism lang="css" code={tooltips}/>
+      </GlassCard>
+    </div>
+    <div slot="demo">
+      <GlassCard>
+        <ContextMenuDemo/>
+      </GlassCard>
+    </div>
+  </SplitView>
+</Slide>

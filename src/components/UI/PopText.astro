@@ -1,0 +1,136 @@
+---
+interface Props {
+  preText: string;
+  popText: string;
+}
+
+const { popText, preText } = Astro.props;
+---
+
+<span class="pop-text">
+  <span aria-hidden="true">{preText}&nbsp;</span>
+  <span aria-hidden="true" class="pop-box">
+    <span class="pop-word">{popText}</span>
+    <span class="pop-dot">.</span>
+  </span>
+  <span aria-hidden="true" class="pop-tm">™</span>
+</span>
+
+<style>
+  .pop-text {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  .pop-text > span:nth-of-type(1) {
+    line-height: 1;
+  }
+
+  .pop-box {
+    color: hsl(0 0% 100%);
+    position: relative;
+    line-height: 1.2;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .pop-box::after {
+    content: "";
+    position: absolute;
+    inset: 0.25rem -0.5rem -0.5rem -0.5rem;
+    background: var(--primary-theme);
+    z-index: -1;
+    transform-origin: 50% 100%;
+  }
+
+  .pop-word {
+    transform-origin: 50% 100%;
+    line-height: 1;
+  }
+
+  .pop-dot {
+    color: hsl(0 0% 100%);
+  }
+
+  .pop-tm {
+    color: hsl(0 0% 100%);
+    position: absolute;
+    bottom: 1px;
+    right: -4px;
+    transform-origin: 100% 20%;
+    scale: 0.35;
+    z-index: 3;
+  }
+</style>
+
+<script>
+  import { gsap } from "gsap";
+
+  const popText = document.querySelector(".pop-text");
+  const popBox = document.querySelector(".pop-box");
+  const popWord = document.querySelector(".pop-word");
+  const popDot = document.querySelector(".pop-dot");
+  const popTm = document.querySelector(".pop-tm");
+
+  const tl = gsap.timeline({ delay: 1.8 });
+
+  // Set initial states
+  gsap.set(popBox, { "--scale-x": 0, "--scale-y": 0.05 });
+  gsap.set(popWord, { scaleY: 0 });
+  gsap.set([popDot, popTm], { opacity: 0 });
+
+  tl.to(popBox, {
+    "--scale-x": 1,
+    duration: 0.6,
+    ease: "power2.out",
+  })
+    .to(
+      popBox,
+      {
+        "--scale-y": 1,
+        duration: 0.7,
+        ease: "elastic.out(1.1, 0.45)",
+      },
+      "+=0.0",
+    )
+    .to(
+      popWord,
+      {
+        scaleY: 1,
+        duration: 0.7,
+        ease: "elastic.out(1.1, 0.45)",
+      },
+      "<",
+    )
+    .to(
+      popDot,
+      {
+        opacity: 1,
+        duration: 0.2,
+      },
+      "-=0.4",
+    )
+    .to(
+      popTm,
+      {
+        opacity: 1,
+        duration: 0.2,
+      },
+      "-=0.15",
+    );
+
+  // Click to replay
+  popText?.addEventListener("click", () => {
+    tl.restart();
+  });
+</script>
+
+<style>
+  /* Add CSS variable support for the pseudo-element */
+  .pop-box::after {
+    scale: var(--scale-x, 0) var(--scale-y, 0.05);
+  }
+</style>

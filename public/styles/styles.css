@@ -1,0 +1,6 @@
+@layer highlighting, variables, reset, global;
+
+@import "/prism-nord.css" layer(highlighting);
+@import "./variables.css" layer(variables);
+@import "./reset.css" layer(reset);
+@import "./global.css" layer(global);

@@ -1,0 +1,55 @@
+---
+  interface Props {
+    class?: string;
+    duration?: number;
+    angle?: number;
+    spread?: number;
+  }
+
+  const {
+    class: className,
+    duration = 2,
+    angle = 120,
+    spread = 6
+  } = Astro.props;
+---
+
+  <span
+    class:list={["shiny-text", className]}
+    style={`--duration: ${duration}s; --bg-angle: ${angle}; --bg-spread: ${spread};`}
+  >
+    <slot />
+  </span>
+
+  <style>
+    .shiny-text {
+      --offset: calc(var(--bg-spread, 6) * 0.5ch);
+      --angle: calc(var(--bg-angle, 120) * 1deg);
+      --base-color: rgb(25, 25, 25);
+      --shine-color: white;
+      --gradient: linear-gradient(
+        var(--angle),
+        #0000 calc(50% - var(--offset)),
+        var(--shine-color),
+        #0000 calc(50% + var(--offset))
+      );
+      --bg: var(--gradient) 0 0 / 300% 100% no-repeat border-box,
+        linear-gradient(var(--base-color), var(--base-color)) padding-box;
+
+      background: var(--bg);
+      background-clip: text;
+      color: transparent;
+      animation: shimmer var(--duration, 2s) infinite both ease-in-out;
+      display: inline-block;
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: 100% 0;
+      }
+      50%,
+      100% {
+        background-position: 0% 0;
+      }
+    }
+  </style>

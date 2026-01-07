@@ -1,0 +1,70 @@
+---
+import { Prism } from "@astrojs/prism";
+import Slide from "../Carousel/Slide.astro";
+import GlassCard from "../GlassCard.astro";
+import InsetDiagram from "../InsetDiagram.astro";
+import SplitView from "../SplitView.astro";
+
+const containingBlock = `.parent {
+  /* This creates the containing block */
+  position: relative;
+}
+.child {
+  /* Positioned relative to parents content box */
+  position: absolute;
+}`;
+
+const absoluteEl = `.absolute-element {
+  position: absolute;
+  top: 80px;
+  right: 120px;
+  bottom: 180px;
+  left: 90px;
+}`;
+---
+
+<Slide>
+  <SplitView>
+    <div slot="content">
+      <GlassCard>
+        <div class="header-wrapper">
+          <h2>Containing Block vs IMCB</h2>
+          <span
+            ><i>(inset-modified containing block)</i></span
+          >
+        </div>
+        <p>
+          The containing block is the reference box that constrains an absolutely/fixed positioned
+          element. It's determined by the nearest positioned ancestor.
+        </p>
+        <p>
+          The containing block defines where <code>top: 0, right: 0, bottom: 0, left: 0</code>
+          are measured from.
+        </pre>
+        <Prism lang="css" code={containingBlock}/>
+
+        <p>
+          The inset-modified containing block is the containing block after inset properties
+          <code>(top, right, bottom, left)</code>shrink it.
+        </p>
+        <Prism lang="css" code={absoluteEl}/>
+      </GlassCard>
+    </div>
+
+    <div slot="demo">
+      <GlassCard>
+        <InsetDiagram/>
+      </GlassCard>
+    </div>
+  </SplitView>
+</Slide>
+
+<style>
+  .header-wrapper {
+    margin-block-end: 0.5rem;
+
+    h2 {
+      margin: 0;
+    }
+  }
+</style>

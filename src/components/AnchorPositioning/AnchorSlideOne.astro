@@ -1,0 +1,134 @@
+---
+import { Prism } from "@astrojs/prism";
+import Slide from "../Carousel/Slide.astro";
+import GlassCard from "../GlassCard.astro";
+import SplitView from "../SplitView.astro";
+
+const anchor = `/* Define an anchor element */
+.anchor {
+  anchor-name: --my-anchor;
+}
+
+/* Anchor a target element */
+.target {
+  position: absolute;
+  position-anchor: --my-anchor;
+}`;
+
+const positioned = `.target {
+  position: absolute;
+  position-anchor: --my-anchor;
+  top: anchor(bottom);
+  left: anchor(right);
+
+  /* Or with logical properties */
+  inset-block-start: anchor(end);
+  inset-inline-start: anchor(self-end);
+}`;
+---
+
+<Slide>
+  <SplitView>
+    <div slot="content">
+      <GlassCard>
+        <h2>Anchor Positioning 101</h2>
+        <p>
+          CSS Anchor Positioning allows us to tether an element relative to another element,
+          regardless if it’s a parent or not.
+        </p>
+
+        <Prism lang="css" code={anchor}/>
+        <hr>
+        <h3>Positioning elements relative to their anchor</h3>
+        <p>
+          The easiest way to position the target element to the anchor is by using the
+          <code>anchor()</code>function. When using the <code>anchor()</code>function, we position
+          the target element by referencing the anchor elements inset-related properties
+          <code>(top, right, inset-block-end)</code>
+        </p>
+        <Prism lang="css" code={positioned}/>
+      </GlassCard>
+    </div>
+    <div slot="demo">
+      <GlassCard>
+        <div class="containing-block block-standard">
+          <div class="anchor anchor-standard">Anchor</div>
+          <div class="target target-standard">Target</div>
+        </div>
+      </GlassCard>
+      <GlassCard>
+        <div class="containing-block block-transform">
+          <div class="anchor anchor-transform">Anchor</div>
+          <div class="target target-transform">Target</div>
+        </div>
+        <div class="note">
+          💡 Anchor Positioning is now transform-aware with Chrome 144+
+        </div>
+      </GlassCard>
+    </div>
+  </SplitView>
+</Slide>
+
+<style>
+  .containing-block {
+    background: white;
+    width: 100%;
+    height: 350px;
+    display: grid;
+    place-items: center;
+    border-radius: 4px;
+  }
+
+  .anchor {
+    background: var(--anchor);
+    color: #333;
+    width: fit-content;
+    padding: 2.5em;
+  }
+  .target {
+    padding: 0.75em 1.25em;
+    background: var(--target);
+    position: absolute;
+    top: anchor(bottom);
+    left: anchor(right);
+  }
+
+  .note {
+    margin-block-start: 1rem;
+    color: #999;
+    font-size: 15px;
+  }
+
+  .anchor-standard {
+    anchor-name: --anchor-std;
+  }
+  .target-standard {
+    position-anchor: --anchor-std;
+  }
+
+  .anchor-transform {
+    anchor-name: --anchor-transform;
+    transition: translate 0.4s ease-out;
+    justify-self: start;
+
+    &:hover {
+      translate: 50%;
+    }
+  }
+  .target-transform {
+    position-anchor: --anchor-transform;
+  }
+
+</style>
+
+<script>
+  import { gsap } from "gsap";
+  import { Draggable } from "gsap/all";
+
+  gsap.registerPlugin(Draggable);
+  const anchor = document.querySelector('.anchor-standard')
+  Draggable.create(anchor, {
+    type: 'x,y',
+    bounds: ".containing-block"
+  })
+</script>

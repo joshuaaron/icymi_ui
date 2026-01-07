@@ -1,0 +1,132 @@
+---
+import { Prism } from "@astrojs/prism";
+import Slide from "../Carousel/Slide.astro";
+import GlassCard from "../GlassCard.astro";
+import SplitView from "../SplitView.astro";
+import PositionAreaSpanGrid from "./PositionAreaSpanGrid.astro";
+import PositionFallbackVisual from "./PositionFallbackVisual.astro";
+import PositionTryScroll from "./PositionTryScroll.astro";
+
+const fallbacks = `.target {
+  position-try: flip-block, flip-inline;
+}`;
+
+const areaValues = `.target {
+  position-try-fallbacks:
+    top, top right, right,
+    bottom right, bottom,
+    bottom left, left;
+}`;
+
+
+const customFallbacks = `.target {
+  position-area: start span-inline-end;
+  position-try-fallbacks:
+    --bottom-span-left,
+    --bottom-span-right;
+}
+
+/* New keyword - @position-try */
+@position-try --bottom-span-left {
+  position-area: block-end span-inline-start;
+}
+
+@position-try --bottom-span-right {
+  position-area: block-end span-inline-end;
+  width: calc(anchor-size() / 0.5);
+}`;
+---
+
+<Slide>
+  <SplitView>
+    <div slot="content">
+      <GlassCard>
+        <h2>Position try fallbacks</h2>
+        <p>
+          Positioning a target according to its anchor is only half the battle. The nature of
+          positioning doesn’t guarantee that it will fit perfectly within the viewport.
+        </p>
+        <p>
+          Imagine a tooltip or popup menu. If the anchor element is at the top of the viewport, and
+          the target is positioned on top of it, it will be hidden. Ideally, the target element
+          (popup) should switch from the top to the bottom of the anchor element.
+        </p>
+        <p>
+          Previously, we relied on JavaScript for this. With Anchor Positioning, we can now use the
+          <code>position-try-fallbacks</code>property.
+        </p>
+
+        <hr>
+
+        <h3>Defining Fallbacks</h3>
+        <p>Fallback options can include predefined fallback options, <code>position-area</code> values, or custom options defined with the <code>@position-try</code> at-rule</p>
+        <p>The fallbacks are helpful but limited as you can only flip the axis. Most of the time this would suffice.</p>
+        <Prism lang="css" code={fallbacks} />
+        <p>Say you had an element positioned to the top left of its anchor and when overflowing, you want to move it directly under the anchor? To achieve this, you can use a <code>position-area</code> value.</p>
+        <Prism lang="css" code={areaValues} />
+        <p>For even greater control, you can define custom fallbacks. This can be handy if you want to change multiple properties when an element overflows, such as its width or margin</p>
+        <Prism lang="css" code={customFallbacks} />
+      </GlassCard>
+    </div>
+    <div slot="demo">
+      <GlassCard>
+        <PositionFallbackVisual/>
+      </GlassCard>
+      <GlassCard>
+        <PositionTryScroll />
+      </GlassCard>
+        <GlassCard>
+        <div class="containing-block-position-try">
+          <div class="position-try-anchor">Anchor</div>
+          <div class="target">Look at me move I am the super all moving target!</div>
+        </div>
+      </GlassCard>
+    </div>
+  </SplitView>
+</Slide>
+
+
+<style>
+  .containing-block-position-try {
+    background: white;
+    width: 100%;
+    height: 400px;
+    display: grid;
+    place-items: center;
+    border-radius: 4px;
+    position: relative;
+  }
+
+  .position-try-anchor {
+    anchor-name: --position-try-anchor;
+    background: var(--anchor);
+    color: #333;
+    width: fit-content;
+    padding: 2.5em;
+  }
+  .target {
+    padding: 0.75em 1.25em;
+    background: var(--target);
+    position: absolute;
+    inline-size: calc(anchor-size() * 2);
+    position-anchor: --position-try-anchor;
+    position-area: top right;
+    position-try-fallbacks:
+      top, top right, right,
+      bottom right, bottom,
+      bottom left, left;
+  }
+</style>
+
+
+<script>
+  import { gsap } from "gsap";
+  import { Draggable } from "gsap/all";
+
+  gsap.registerPlugin(Draggable);
+  const anchor = document.querySelector('.position-try-anchor');
+  Draggable.create(anchor, {
+    type: 'x,y',
+    bounds: '.containing-block-position-try'
+  })
+</script>

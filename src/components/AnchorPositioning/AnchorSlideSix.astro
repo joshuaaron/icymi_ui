@@ -1,0 +1,53 @@
+---
+import { Prism } from "@astrojs/prism";
+import Slide from "../Carousel/Slide.astro";
+import GlassCard from "../GlassCard.astro";
+import SplitView from "../SplitView.astro";
+import ChartDemo from "./ChartDemo.astro";
+
+const tooltips = `.tooltip--min {
+  position: absolute;
+  right: anchor(--chart left);
+  bottom: min(
+    anchor(--anchor-1 top),
+    anchor(--anchor-2 top),
+    anchor(--anchor-3 top)
+  );
+  translate: 0 50%;
+}
+
+.tooltip--max {
+  position: absolute;
+  left: anchor(--chart right);
+  bottom: max(
+    anchor(--anchor-1 top),
+    anchor(--anchor-2 top),
+    anchor(--anchor-3 top)
+  );
+  translate: 0 50%;
+}
+
+.size-fill--max {
+  inline-size: max(
+    anchor-size(--anchor-one height),
+    anchor-size(--anchor-two height),
+    anchor-size(--anchor-three height)
+  );
+}`;
+---
+
+<Slide>
+  <SplitView>
+    <div slot="content">
+      <GlassCard>
+        <h2>Dynamic Anchors with min()/max()</h2>
+        <Prism lang="css" code={tooltips}/>
+      </GlassCard>
+    </div>
+    <div slot="demo">
+      <GlassCard>
+        <ChartDemo/>
+      </GlassCard>
+    </div>
+  </SplitView>
+</Slide>

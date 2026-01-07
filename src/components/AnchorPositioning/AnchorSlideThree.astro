@@ -1,0 +1,56 @@
+---
+import { Prism } from "@astrojs/prism";
+import Slide from "../Carousel/Slide.astro";
+import GlassCard from "../GlassCard.astro";
+import PositionAreaGrid from "../PositionAreaGrid.astro";
+import SplitView from "../SplitView.astro";
+
+const positionArea = `.anchor {
+  anchor-name: --anchor;
+}
+
+.target {
+  position: absolute;
+  position-anchor: --anchor;
+  position-area: top right;
+}`;
+---
+
+<Slide>
+  <SplitView>
+    <div slot="content">
+      <GlassCard>
+        <h2>Why It Matters for Anchor Positioning</h2>
+        <p>
+          Another way of positioning target elements is with the <code>position-area </code>
+          property. When doing so, inset values are automatically calculated based on the anchor's
+          position:
+        </p>
+        <p>
+          The position-area property uses a 3×3 imaginary grid surrounding the anchor element and
+          lets us place the target in one or more regions of the grid.
+        </p>
+
+        <p>
+          When we set <code>position-area: top right</code>it automatically sets the insets for the
+          IMCB to be the top-right region of the grid.
+        </p>
+
+        <Prism lang="css" code={positionArea}/>
+
+        <hr>
+
+        <p>
+          Using the targets <code>justify-self | align-self</code>properties aligns the element
+          <i>within</i>the IMCB
+        </p>
+      </GlassCard>
+    </div>
+
+    <div slot="demo">
+      <GlassCard>
+        <PositionAreaGrid/>
+      </GlassCard>
+    </div>
+  </SplitView>
+</Slide>

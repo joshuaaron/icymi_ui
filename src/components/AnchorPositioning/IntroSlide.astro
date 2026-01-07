@@ -1,0 +1,57 @@
+---
+import Slide from "../Carousel/Slide.astro";
+import PopText from "../UI/PopText.astro";
+---
+
+<Slide>
+  <div class="header-container" data-intro>
+    <h1>
+      <PopText preText="in case you missed it" popText="- UI"/>
+    </h1>
+    <div class="wrapper">
+      <span class="block"></span>
+      <h2>cool new things on the frontend</h2>
+    </div>
+  </div>
+</Slide>
+
+<style>
+  .header-container {
+    display: grid;
+    gap: 0.5rem;
+    opacity: 0;
+    filter: blur(10px);
+    /* animation-play-state: paused; */
+    animation: fade-blur-in 1.2s 1s forwards ease-out;
+  }
+
+  .wrapper {
+    display: flex;
+    gap: 8px;
+    overflow: hidden;
+    opacity: 0;
+    filter: blur(10px);
+    animation: fade-blur-in 0.5s 2.8s forwards var(--ease-one);
+
+    .block {
+      background: var(--primary-theme);
+      width: 2px;
+      height: 100%;
+      opacity: 0;
+      animation: fade-blur-in 0.5s 2.9s forwards var(--ease-one);
+    }
+  }
+
+  h1 {
+    font-size: 90px;
+    font-weight: 700;
+    color: hsl(0 0% 60% / 0.6);
+    letter-spacing: -1px;
+  }
+
+  h2 {
+    font-family: sans-serif;
+    color: hsl(0 0% 50% / 0.75);
+    margin: 0;
+  }
+</style>

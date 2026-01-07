@@ -1,0 +1,368 @@
+<div class="span-demo">
+  <!-- Position radios (same 9-cell grid) -->
+  <input type="radio" name="span-position" id="span-pos-top-left" value="top left">
+  <input type="radio" name="span-position" id="span-pos-top-center" value="top center">
+  <input type="radio" name="span-position" id="span-pos-top-right" value="top right" checked>
+  <input type="radio" name="span-position" id="span-pos-center-left" value="center left">
+  <input type="radio" name="span-position" id="span-pos-center-center" value="center">
+  <input type="radio" name="span-position" id="span-pos-center-right" value="center right">
+  <input type="radio" name="span-position" id="span-pos-bottom-left" value="bottom left">
+  <input type="radio" name="span-position" id="span-pos-bottom-center" value="bottom center">
+  <input type="radio" name="span-position" id="span-pos-bottom-right" value="bottom right">
+
+  <div class="demo-header">
+    <pre
+      class="position-display"
+    ><code>position-area: <span class="value">top right</span>;</code></pre>
+  </div>
+
+  <div class="span-controls">
+    <!-- Inline axis (horizontal) -->
+    <fieldset class="span-group">
+      <legend>inline axis</legend>
+      <label>
+        <input type="radio" name="inline-span" value="none">
+        <span>none</span>
+      </label>
+      <label>
+        <input type="radio" name="inline-span" value="span-left">
+        <span>span-left</span>
+      </label>
+      <label>
+        <input type="radio" name="inline-span" value="span-right" checked>
+        <span>span-right</span>
+      </label>
+      <label>
+        <input type="radio" name="inline-span" value="span-all">
+        <span>span-all</span>
+      </label>
+    </fieldset>
+
+    <!-- Block axis (vertical) -->
+    <fieldset class="span-group">
+      <legend>block axis</legend>
+      <label>
+        <input type="radio" name="block-span" value="none" checked>
+        <span>none</span>
+      </label>
+      <label>
+        <input type="radio" name="block-span" value="span-top">
+        <span>span-top</span>
+      </label>
+      <label>
+        <input type="radio" name="block-span" value="span-bottom">
+        <span>span-bottom</span>
+      </label>
+      <label>
+        <input type="radio" name="block-span" value="span-all">
+        <span>span-all</span>
+      </label>
+    </fieldset>
+  </div>
+
+  <div class="demo-container">
+    <label for="span-pos-top-left" data-row="1" data-col="1">
+      <span class="imcb-label">inset-modified containing block</span>
+    </label>
+    <label for="span-pos-top-center" data-row="1" data-col="2">
+      <span class="imcb-label">inset-modified containing block</span>
+    </label>
+    <label for="span-pos-top-right" data-row="1" data-col="3">
+      <span class="imcb-label">inset-modified containing block</span>
+    </label>
+    <label for="span-pos-center-left" data-row="2" data-col="1">
+      <span class="imcb-label">inset-modified containing block</span>
+    </label>
+    <label for="span-pos-center-center" data-row="2" data-col="2" class="anchor-cell">
+      <span class="anchor-label">anchor</span>
+    </label>
+    <label for="span-pos-center-right" data-row="2" data-col="3">
+      <span class="imcb-label">inset-modified containing block</span>
+    </label>
+    <label for="span-pos-bottom-left" data-row="3" data-col="1">
+      <span class="imcb-label">inset-modified containing block</span>
+    </label>
+    <label for="span-pos-bottom-center" data-row="3" data-col="2">
+      <span class="imcb-label">inset-modified containing block</span>
+    </label>
+    <label for="span-pos-bottom-right" data-row="3" data-col="3">
+      <span class="imcb-label">inset-modified containing block</span>
+    </label>
+
+    <span class="positioned">Look at me. I am the target now.</span>
+    <span class="containing-block-label">containing block</span>
+  </div>
+</div>
+
+<style>
+  .span-demo {
+    --cell-size: 100px;
+    color: white;
+
+    & input[type="radio"][name="span-position"] {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+
+  .demo-header {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  .position-display {
+    font-size: 1rem;
+    margin: 0;
+
+    .value {
+      color: var(--display-value);
+      font-weight: 600;
+    }
+  }
+
+  .span-controls {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+    justify-content: center;
+  }
+
+  .span-group {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    & legend {
+      font-family: monospace;
+      font-size: 0.75rem;
+      padding: 0 0.5rem;
+      opacity: 0.7;
+    }
+
+    & label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: monospace;
+      font-size: 0.875rem;
+      cursor: pointer;
+    }
+
+    & input[type="radio"] {
+      accent-color: var(--form-control);
+    }
+  }
+
+  .demo-container {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 120px);
+    background: #f0f0f0;
+    border-radius: 8px;
+    margin: 0 auto;
+
+    & label {
+      border: var(--border-base);
+      cursor: pointer;
+      position: relative;
+      transition: background 0.15s;
+
+      &:not(.highlighted, .anchor-cell):hover {
+        background: rgba(147, 112, 219, 0.1);
+      }
+    }
+  }
+
+  .imcb-label {
+    display: none;
+    font-family: monospace;
+    font-size: 0.65rem;
+    padding: 0.5rem;
+    color: #333;
+  }
+
+  .anchor-cell {
+    anchor-name: --span-anchor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--anchor);
+    border-radius: 8px;
+    font-size: 1.25rem;
+  }
+
+  .anchor-label {
+    color: #333;
+  }
+
+  .positioned {
+    position: absolute;
+    position-anchor: --span-anchor;
+    position-area: top right;
+    background: var(--target);
+    color: white;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    text-align: center;
+    z-index: 10;
+  }
+
+  .containing-block-label {
+    position: absolute;
+    bottom: 0.5rem;
+    left: 0.5rem;
+    font-family: monospace;
+    font-size: 0.75rem;
+    color: #333;
+  }
+
+  .demo-container label.highlighted {
+    background: var(--imcb);
+
+    & .imcb-label {
+      display: block;
+    }
+  }
+  .demo-container label.highlighted .imcb-label {
+    display: none;
+  }
+
+  .demo-container label.highlighted.show-label .imcb-label {
+    display: block;
+  }
+</style>
+
+<script>
+  const positioned = document.querySelector(".span-demo .positioned") as HTMLElement;
+  const valueDisplay = document.querySelector(".span-demo .position-display .value") as HTMLElement;
+  const labels = document.querySelectorAll(".span-demo .demo-container label[data-row]");
+
+  const positionRadios = document.querySelectorAll('input[name="span-position"]');
+  const inlineRadios = document.querySelectorAll('input[name="inline-span"]');
+  const blockRadios = document.querySelectorAll('input[name="block-span"]');
+
+  const rowMap = { top: 1, center: 2, bottom: 3 };
+  const colMap = { left: 1, center: 2, right: 3 };
+
+  function updatePositionArea() {
+    const position =
+      (document.querySelector('input[name="span-position"]:checked') as HTMLInputElement)?.value ||
+      "center left";
+    const inlineSpan =
+      (document.querySelector('input[name="inline-span"]:checked') as HTMLInputElement)?.value ||
+      "none";
+    const blockSpan =
+      (document.querySelector('input[name="block-span"]:checked') as HTMLInputElement)?.value ||
+      "none";
+
+    // Parse position into block and inline parts
+    const parts = position.split(" ");
+    const blockPos = parts[0]; // top, center, bottom
+    const inlinePos = parts[1] || "center"; // left, center, right
+
+    const baseRow = rowMap[blockPos];
+    const baseCol = colMap[inlinePos];
+
+    // Determine row range based on block span (anchor-relative)
+    let rowStart: number, rowEnd: number;
+    switch (blockSpan) {
+      case "span-top":
+        rowStart = 1;
+        rowEnd = 2; // top to center (anchor)
+        break;
+      case "span-bottom":
+        rowStart = 2;
+        rowEnd = 3; // center (anchor) to bottom
+        break;
+      case "span-all":
+        rowStart = 1;
+        rowEnd = 3;
+        break;
+      default: // none - use base position
+        rowStart = baseRow;
+        rowEnd = baseRow;
+    }
+
+    // Determine column range based on inline span (anchor-relative)
+    let colStart: number, colEnd: number;
+    switch (inlineSpan) {
+      case "span-left":
+        colStart = 1;
+        colEnd = 2; // left to center (anchor)
+        break;
+      case "span-right":
+        colStart = 2;
+        colEnd = 3; // center (anchor) to right
+        break;
+      case "span-all":
+        colStart = 1;
+        colEnd = 3;
+        break;
+      default: // none - use base position
+        colStart = baseCol;
+        colEnd = baseCol;
+    }
+
+    // Update cell highlights
+    let firstHighlighted = true;
+    labels.forEach((label) => {
+      const row = parseInt((label as HTMLElement).dataset.row || "0");
+      const col = parseInt((label as HTMLElement).dataset.col || "0");
+
+      const isInRange = row >= rowStart && row <= rowEnd && col >= colStart && col <= colEnd;
+      const isAnchor = row === 2 && col === 2;
+
+      label.classList.toggle("highlighted", isInRange && !isAnchor);
+
+      // Show label only on first highlighted cell
+      if (isInRange && !isAnchor && firstHighlighted) {
+        label.classList.add("show-label");
+        firstHighlighted = false;
+      } else {
+        label.classList.remove("show-label");
+      }
+    });
+
+    // Build position-area value
+      // Build position-area value
+  const blockPart = blockSpan !== "none" ? blockSpan : blockPos;
+  const inlinePart = inlineSpan !== "none" ? inlineSpan : inlinePos;
+
+  let positionArea: string;
+  if (inlineSpan === "span-all" && blockSpan === "span-all") {
+    // Both axes span all - covers entire grid
+    positionArea = "span-all";
+  } else if (inlineSpan === "span-all") {
+    // Inline spans all columns, just use block value
+    positionArea = blockPart;
+  } else if (blockSpan === "span-all") {
+    // Block spans all rows, just use inline value
+    positionArea = inlinePart;
+  } else {
+    positionArea = `${blockPart} ${inlinePart}`;
+  }
+
+    // Apply to positioned element
+    positioned.style["positionArea" as any] = positionArea;
+    valueDisplay.textContent = positionArea;
+  }
+
+  positionRadios.forEach((radio) => {
+    radio.addEventListener("change", updatePositionArea);
+  });
+  inlineRadios.forEach((radio) => {
+    radio.addEventListener("change", updatePositionArea);
+  });
+  blockRadios.forEach((radio) => {
+    radio.addEventListener("change", updatePositionArea);
+  });
+
+  // Initial update
+  updatePositionArea();
+</script>

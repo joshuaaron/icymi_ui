@@ -1,0 +1,218 @@
+---
+// Layout.astro or similar
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/styles.css">
+    <title>In case you missed it UI</title>
+  </head>
+  <body>
+    <!-- Fixed background layer -->
+    <div class="background">
+      <svg class="svg-curves" viewBox="0 0 1600 1200" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <linearGradient id="orange" x1="0%" y1="100%" x2="60%" y2="40%">
+            <stop offset="0%" stop-color="#ee9944"/>
+            <stop offset="50%" stop-color="#dd8833"/>
+            <stop offset="100%" stop-color="#aa5522" stop-opacity="0"/>
+          </linearGradient>
+
+          <linearGradient id="blue" x1="10%" y1="100%" x2="90%" y2="10%">
+            <stop offset="0%" stop-color="#15334a"/>
+            <stop offset="35%" stop-color="#2a6080"/>
+            <stop offset="65%" stop-color="#4090b0"/>
+            <stop offset="100%" stop-color="#60c0dd"/>
+          </linearGradient>
+
+          <linearGradient id="cyan" x1="20%" y1="100%" x2="100%" y2="20%">
+            <stop offset="0%" stop-color="#306070" stop-opacity="0"/>
+            <stop offset="40%" stop-color="#50a0b8"/>
+            <stop offset="70%" stop-color="#70c8e0"/>
+            <stop offset="100%" stop-color="#90e0f0"/>
+          </linearGradient>
+
+          <filter id="blur80">
+            <feGaussianBlur stdDeviation="40"/>
+          </filter>
+          <filter id="blur60">
+            <feGaussianBlur stdDeviation="30"/>
+          </filter>
+        </defs>
+
+        <path
+          d="M -150 950 Q 50 700, 200 550 Q 400 350, 600 280 L 500 380 Q 320 450, 180 600 Q 40 750, -150 950 Z"
+          fill="url(#orange)"
+          filter="url(#blur80)"
+          opacity="0.9"
+        />
+
+        <path
+          d="M -100 1000 Q 150 650, 400 450 Q 700 220, 1050 100 Q 1300 20, 1500 50 L 1500 250 Q 1250 200, 1000 280 Q 700 380, 450 550 Q 200 720, 0 950 Z"
+          fill="url(#blue)"
+          filter="url(#blur80)"
+        />
+
+        <path
+          d="M 150 1000 Q 400 650, 650 450 Q 950 220, 1300 100 L 1500 150 L 1500 350 Q 1200 280, 950 380 Q 650 500, 450 680 Q 250 850, 150 1000 Z"
+          fill="url(#cyan)"
+          filter="url(#blur60)"
+        />
+
+        <ellipse
+          cx="1000"
+          cy="350"
+          rx="400"
+          ry="300"
+          fill="#60c8e0"
+          filter="url(#blur80)"
+          opacity="0.3"
+        />
+      </svg>
+
+      <div class="layer blue-sweep"></div>
+      <div class="layer cyan-glow"></div>
+      <div class="layer orange-glow"></div>
+
+      <div class="dark dark-top-left"></div>
+      <div class="dark dark-bottom-left"></div>
+      <div class="dark dark-top-right"></div>
+
+      <div class="noise"></div>
+    </div>
+
+    <!-- Content container for slot -->
+    <main class="content">
+      <slot/>
+    </main>
+  </body>
+</html>
+
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    min-height: 100vh;
+    background: #000;
+  }
+
+  /* Fixed background */
+  .background {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    filter: brightness(0.5);
+    background: linear-gradient(145deg, #08101a 0%, #050a10 50%, #000 100%);
+    overflow: hidden;
+  }
+
+  /* Content container on top */
+  .content {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    /* Add your layout styles here */
+  }
+
+  .layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    mix-blend-mode: screen;
+  }
+
+  .orange-glow {
+    background: conic-gradient(
+      from 68deg at 20% 113%,
+      transparent 0deg,
+      #cc6622 15deg,
+      #ee9944 40deg,
+      #dd7733 60deg,
+      #aa5522 80deg,
+      transparent 100deg
+    );
+    filter: blur(60px);
+    opacity: 0.85;
+  }
+
+  .blue-sweep {
+    background: conic-gradient(
+      from 210deg at 5% 125%,
+      transparent 0deg,
+      #183048 35deg,
+      #2a5878 60deg,
+      #3a80a0 90deg,
+      #50a8c8 120deg,
+      transparent 150deg
+    );
+    filter: blur(60px);
+    opacity: 0.6;
+  }
+
+  .cyan-glow {
+    background: radial-gradient(
+      ellipse 50% 45% at 75% 45%,
+      #70d0e8 0%,
+      #50b0c8 30%,
+      #3090a8 50%,
+      transparent 70%
+    );
+    filter: blur(50px);
+    opacity: 0.5;
+  }
+
+  .dark {
+    position: absolute;
+  }
+
+  .dark-top-left {
+    top: -20%;
+    left: -20%;
+    width: 70%;
+    height: 60%;
+    background: radial-gradient(ellipse at center, #030610 0%, transparent 65%);
+    filter: blur(30px);
+  }
+
+  .dark-bottom-left {
+    bottom: -25%;
+    left: -15%;
+    width: 45%;
+    height: 55%;
+    background: radial-gradient(ellipse at center, #000 0%, transparent 60%);
+    filter: blur(40px);
+  }
+
+  .dark-top-right {
+    top: -25%;
+    right: -10%;
+    width: 45%;
+    height: 35%;
+    background: radial-gradient(ellipse at center, #000 0%, transparent 65%);
+    filter: blur(35px);
+  }
+
+  .noise {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.2;
+    mix-blend-mode: soft-light;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  }
+  .svg-curves {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    inset: 0;
+    scale: 1.5; /* Adjust as needed */
+    transform-origin: center center;
+  }
+</style>

@@ -1,16 +1,28 @@
 ---
-
+import AnchorSlideFive from "../components/AnchorPositioning/AnchorSlideFive.astro";
+import AnchorSlideFour from "../components/AnchorPositioning/AnchorSlideFour.astro";
+import AnchorSlideOne from "../components/AnchorPositioning/AnchorSlideOne.astro";
+import AnchorSlideSeven from "../components/AnchorPositioning/AnchorSlideSeven.astro";
+import AnchorSlideSix from "../components/AnchorPositioning/AnchorSlideSix.astro";
+import AnchorSlideThree from "../components/AnchorPositioning/AnchorSlideThree.astro";
+import AnchorSlideTwo from "../components/AnchorPositioning/AnchorSlideTwo.astro";
+import IntroSlide from "../components/AnchorPositioning/IntroSlide.astro";
+import Carousel from "../components/Carousel/Carousel.astro";
+import MainLayout from "../layouts/MainLayout.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<MainLayout title="CSS Grid Demo">
+  <Carousel title="CSS Anchor Positioning">
+    <IntroSlide/>
+    <AnchorSlideOne/>
+    <AnchorSlideTwo/>
+    <AnchorSlideThree/>
+    <AnchorSlideFour/>
+    <AnchorSlideFive/>
+    <AnchorSlideSix/>
+    <AnchorSlideSeven/>
+  </Carousel>
+</MainLayout>
+
+<style>
+</style>
