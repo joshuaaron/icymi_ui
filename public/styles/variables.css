@@ -7,11 +7,14 @@
   --display-value: #b49ef7;
   --form-control: color-mix(in srgb, var(--primary-theme) 75%, white 15%);
 
-  --shade-light: #b5b5b5;
-  --shade-primary: #999;
-  --shade-dark: #333;
+  --demo-block-bg: hsl(0, 0%, 94%);
+  --shade-light: hsl(0, 0%, 71%);
+  --shade-primary: hsl(0, 0%, 60%);
+  --shade-dark: hsl(0, 0%, 20%);
   --border-base: 1px solid var(--shade-light);
   --border-opaque: hsl(from var(--shade-light) h s l / 0.3);
+
+  --max-text-length: 65ch;
 
   --ease-one: linear(
     0,

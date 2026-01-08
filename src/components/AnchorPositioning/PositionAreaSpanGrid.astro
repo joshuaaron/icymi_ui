@@ -163,7 +163,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 120px);
-    background: #f0f0f0;
+    background: var(--demo-block-bg);
     border-radius: 8px;
     margin: 0 auto;
 
@@ -330,23 +330,23 @@
     });
 
     // Build position-area value
-      // Build position-area value
-  const blockPart = blockSpan !== "none" ? blockSpan : blockPos;
-  const inlinePart = inlineSpan !== "none" ? inlineSpan : inlinePos;
+    // Build position-area value
+    const blockPart = blockSpan !== "none" ? blockSpan : blockPos;
+    const inlinePart = inlineSpan !== "none" ? inlineSpan : inlinePos;
 
-  let positionArea: string;
-  if (inlineSpan === "span-all" && blockSpan === "span-all") {
-    // Both axes span all - covers entire grid
-    positionArea = "span-all";
-  } else if (inlineSpan === "span-all") {
-    // Inline spans all columns, just use block value
-    positionArea = blockPart;
-  } else if (blockSpan === "span-all") {
-    // Block spans all rows, just use inline value
-    positionArea = inlinePart;
-  } else {
-    positionArea = `${blockPart} ${inlinePart}`;
-  }
+    let positionArea: string;
+    if (inlineSpan === "span-all" && blockSpan === "span-all") {
+      // Both axes span all - covers entire grid
+      positionArea = "span-all";
+    } else if (inlineSpan === "span-all") {
+      // Inline spans all columns, just use block value
+      positionArea = blockPart;
+    } else if (blockSpan === "span-all") {
+      // Block spans all rows, just use inline value
+      positionArea = inlinePart;
+    } else {
+      positionArea = `${blockPart} ${inlinePart}`;
+    }
 
     // Apply to positioned element
     positioned.style["positionArea" as any] = positionArea;

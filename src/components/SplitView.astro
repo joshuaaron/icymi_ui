@@ -17,7 +17,6 @@
 </div>
 
 <style>
-  /* Base Mobile Styles (Stacked) */
   .split-container {
     display: grid;
     grid-template-columns: 1fr;
@@ -31,15 +30,11 @@
     container-type: inline-size;
   }
 
-  /* Desktop Styles (Split Screen) */
   @media (min-width: 900px) {
     .split-container {
-      /* 1. Subtract header height if your MainLayout has a fixed header.
-         e.g., calc(100vh - 64px)
-      */
       height: 100svh;
-      grid-template-columns: 1fr 1fr; /* 50/50 split */
-      overflow: hidden; /* Prevents whole page scrolling */
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
     }
 
     .pane {
@@ -48,21 +43,18 @@
       border-bottom: none;
     }
 
-    /* Add a divider line between columns */
     .content-pane {
       border-right: 1px solid #afb0b1ae;
     }
 
-    /* Optional: Style the demo area to look like a "canvas" */
     .demo-pane {
       display: grid;
       height: 100%;
-      justify-content: center; /* Centers the demo component */
+      justify-content: center;
     }
 
-    /* Optional: Constraint for readability on the text side */
     .pane-content {
-      max-width: 65ch;
+      max-width: var(--max-text-length);
       margin: 0 auto;
     }
   }

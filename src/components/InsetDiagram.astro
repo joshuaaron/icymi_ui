@@ -45,17 +45,14 @@ const { top = 80, right = 120, bottom = 180, left = 90 } = Astro.props;
 
 <style>
   .inset-diagram {
-    --line-color: #333;
-    --cb-bg: #f0f0f0;
-    --imcb-bg: #f5d547;
     font-family: monospace;
     font-size: 0.875rem;
   }
 
   .containing-block {
     position: relative;
-    background: var(--cb-bg);
-    border: 2px solid var(--line-color);
+    background: var(--demo-block-bg);
+    border: 2px solid var(--shade-dark);
     border-radius: 4px;
     padding: var(--inset-top) var(--inset-right) var(--inset-bottom) var(--inset-left);
     min-width: 400px;
@@ -65,7 +62,7 @@ const { top = 80, right = 120, bottom = 180, left = 90 } = Astro.props;
   .parent,
   .child {
     position: absolute;
-    color: #333;
+    color: var(--shade-dark);
     /* font-size: 12px; */
     top: 5px;
     left: 5px;
@@ -75,13 +72,13 @@ const { top = 80, right = 120, bottom = 180, left = 90 } = Astro.props;
     position: absolute;
     bottom: 0.75rem;
     left: 1rem;
-    color: var(--line-color);
+    color: var(--shade-dark);
   }
 
   .imcb {
     position: relative;
-    background: var(--imcb-bg);
-    border: 2px solid var(--line-color);
+    background: var(--imcb);
+    border: 2px solid var(--shade-dark);
     border-radius: 16px;
     height: 100%;
     min-height: 150px;
@@ -91,7 +88,7 @@ const { top = 80, right = 120, bottom = 180, left = 90 } = Astro.props;
   }
 
   .imcb-label {
-    color: var(--line-color);
+    color: var(--shade-dark);
   }
 
   /* Measurement lines */
@@ -99,15 +96,15 @@ const { top = 80, right = 120, bottom = 180, left = 90 } = Astro.props;
     position: absolute;
     display: flex;
     align-items: center;
-    color: var(--line-color);
+    color: var(--shade-dark);
   }
 
   .measure .line {
-    border: 1px dashed var(--line-color);
+    border: 1px dashed var(--shade-dark);
   }
 
   .measure .value {
-    background: var(--cb-bg);
+    background: var(--demo-block-bg);
     padding: 0 0.25rem;
   }
 

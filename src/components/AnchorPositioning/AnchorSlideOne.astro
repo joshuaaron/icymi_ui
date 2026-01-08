@@ -51,6 +51,7 @@ const positioned = `.target {
     </div>
     <div slot="demo">
       <GlassCard>
+        <div class="note">⚠️ Anchor Positioning is transform-aware with Canary / Chrome 144+</div>
         <div class="containing-block block-standard">
           <div class="anchor anchor-standard">Anchor</div>
           <div class="target target-standard">Target</div>
@@ -61,7 +62,6 @@ const positioned = `.target {
           <div class="anchor anchor-transform">Anchor</div>
           <div class="target target-transform">Target</div>
         </div>
-        <div class="note">💡 Anchor Positioning is now transform-aware with Chrome 144+</div>
       </GlassCard>
     </div>
   </SplitView>
@@ -92,7 +92,7 @@ const positioned = `.target {
   }
 
   .note {
-    margin-block-start: 1rem;
+    margin-block-end: 1rem;
     color: var(--shade-primary);
     font-size: 15px;
   }

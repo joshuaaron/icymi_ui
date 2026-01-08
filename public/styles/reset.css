@@ -25,6 +25,7 @@
 :where(body) {
   margin: 0;
   min-block-size: 100dvh;
+  background: #000;
   -webkit-font-smoothing: antialiased;
 }
 
