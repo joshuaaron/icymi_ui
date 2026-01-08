@@ -32,6 +32,7 @@
    which suggests default styling will be removed */
 :where(ul, ol) {
   list-style: none;
+  margin: 0;
   padding: 0;
 }
 

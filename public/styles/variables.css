@@ -7,12 +7,11 @@
   --display-value: #b49ef7;
   --form-control: color-mix(in srgb, var(--primary-theme) 75%, white 15%);
 
-  --accent-one: #80bdf6;
-  --accent-two: #f68080;
-  --accent-three: #b8d7b2;
-  --accent-four: #b4b0ad;
-
-  --border-base: 1px solid #999;
+  --shade-light: #b5b5b5;
+  --shade-primary: #999;
+  --shade-dark: #333;
+  --border-base: 1px solid var(--shade-light);
+  --border-opaque: hsl(from var(--shade-light) h s l / 0.3);
 
   --ease-one: linear(
     0,

@@ -24,6 +24,11 @@
 </div>
 <style>
   .container {
+    --accent-one: #80bdf6;
+    --accent-two: #f68080;
+    --accent-three: #b8d7b2;
+    --accent-four: #b4b0ad;
+
     container-type: inline-size;
     anchor-scope: --anchor-one, --anchor-two, --anchor-three;
   }
@@ -108,17 +113,18 @@
   }
 
   input[type="range"] {
+    --thumb-size: 16px;
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
     height: 6px;
-    background: rgba(255, 255, 255, 0.2);
+    background: var(--border-opaque);
     border-radius: 3px;
     cursor: pointer;
 
     /* Track - Firefox */
     &::-moz-range-track {
-      background: rgba(255, 255, 255, 0.2);
+      background: var(--border-opaque);
       height: 6px;
       border-radius: 3px;
     }
@@ -127,11 +133,11 @@
     &::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
-      width: 16px;
-      height: 16px;
+      width: var(--thumb-size);
+      height: var(--thumb-size);
       background: var(--form-control);
       border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      border: 1px solid var(--border-opaque);
       cursor: pointer;
       transition: all 0.15s;
     }
@@ -142,11 +148,11 @@
 
     /* Thumb - Firefox */
     &::-moz-range-thumb {
-      width: 16px;
-      height: 16px;
+      width: var(--thumb-size);
+      height: var(--thumb-size);
       background: var(--form-control);
       border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      border: 1px solid var(--border-opaque);
       cursor: pointer;
       transition: all 0.15s;
     }
@@ -234,7 +240,7 @@
 </style>
 
 <script>
-  const INPUTS = document.querySelectorAll("input");
+  const inputs = document.querySelectorAll("input");
 
   const update = (e) => {
     const barId = document.querySelector(
@@ -244,7 +250,7 @@
     barId.style.height = `${e.target.value}%`;
   };
 
-  INPUTS.forEach((input) => {
+  inputs.forEach((input) => {
     input.addEventListener("input", update);
   });
 </script>

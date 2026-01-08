@@ -133,7 +133,6 @@
 
   @layer foundation {
     :root {
-      color-scheme: light only;
       --alpha: 0.15;
       --backdrop: white;
       --line: color-mix(in lch, canvasText 25%, transparent);
@@ -141,21 +140,6 @@
         0 0 0 1px rgba(0, 0, 0, 0.08), 0px 1px 1px rgba(0, 0, 0, 0.02),
         0px 4px 8px -4px rgba(0, 0, 0, 0.04),
         0px 16px 24px -8px rgba(0, 0, 0, 0.06);
-    }
-
-    :root:has([aria-pressed="true"]) {
-      color-scheme: dark only;
-      --alpha: 0.3;
-      --backdrop: black;
-      --line: color-mix(in lch, canvasText 15%, transparent);
-      --shadow:
-        0 0 0 1px hsla(0, 0%, 100%, 0.145),
-        0px 1px 1px rgba(0, 0, 0, 0.02), 0px 4px 8px -4px rgba(0, 0, 0, 0.04),
-        0px 16px 24px -8px rgba(0, 0, 0, 0.06);
-    }
-
-    :root:has([aria-pressed="true"]) img {
-      filter: brightness(0.75);
     }
 
     hr {
@@ -188,14 +172,6 @@
       border-radius: 6px;
       box-shadow: var(--shadow);
       background: var(--backdrop);
-    }
-
-    /*	Popover stuff */
-
-    ul {
-      margin: 0;
-      padding: 0;
-      list-style-type: none;
     }
 
     button {
@@ -308,7 +284,7 @@
       box-shadow: var(--shadow);
 
       span {
-        color: #333;
+        color: var(--shade-dark);
       }
     }
     .playing img {
@@ -320,7 +296,7 @@
     .details {
       display: grid;
       font-weight: 600;
-      color: #333;
+      color: var(--shade-dark);
     }
     .details div:last-of-type {
       font-size: 12px;

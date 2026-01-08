@@ -19,8 +19,6 @@ const logicalProps = `.target {
 .target {
   position-area: block-end;
 }`;
-
-
 ---
 
 <Slide>
@@ -37,11 +35,13 @@ const logicalProps = `.target {
           <code>span-</code>on any value (that isn’t center) for both axis'
         </p>
         <p>
-          To span the target across all three adjacent regions, we reference the single axis value <code>top | bottom | left | right</code> or <code> inline-start/end block-start/end</code> with logical properties
+          To span the target across all three adjacent regions, we reference the single axis value
+          <code>top | bottom | left | right</code>or <code>inline-start/end block-start/end</code>
+          with logical properties
         </p>
         <Prism lang="css" code={positionArea}/>
         <p>With logical properties:</p>
-        <Prism lang="css" code={logicalProps} />
+        <Prism lang="css" code={logicalProps}/>
       </GlassCard>
     </div>
     <div slot="demo">
